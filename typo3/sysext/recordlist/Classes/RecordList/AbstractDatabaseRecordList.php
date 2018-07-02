@@ -1213,30 +1213,38 @@ class AbstractDatabaseRecordList extends AbstractRecordList
                     }
                 }
 
-                $fieldListArr[] = 'uid';
-                $fieldListArr[] = 'pid';
+                if(!in_array('uid',$fieldListArr)) { $fieldListArr[] = 'uid'; }
+                if(!in_array('pid',$fieldListArr)) { $fieldListArr[] = 'pid'; }
 
                 // Add date fields
                 if ($dontCheckUser || $backendUser->isAdmin() || $addDateFields) {
                     if ($GLOBALS['TCA'][$table]['ctrl']['tstamp']) {
-                        $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['tstamp'];
+                        if(!in_array($GLOBALS['TCA'][$table]['ctrl']['tstamp'],$fieldListArr)) { 
+                            $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['tstamp'];
+                        }
                     }
                     if ($GLOBALS['TCA'][$table]['ctrl']['crdate']) {
-                        $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['crdate'];
+                        if(!in_array($GLOBALS['TCA'][$table]['ctrl']['crdate'],$fieldListArr)) { 
+                            $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['crdate'];
+                        }
                     }
                 }
                 // Add more special fields:
-                if ($dontCheckUser || $backendUser->isAdmin()) {
+                if ($dontCheckUser || $backendUser->isAdmin()) {                    
                     if ($GLOBALS['TCA'][$table]['ctrl']['cruser_id']) {
-                        $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['cruser_id'];
+                        if(!in_array($GLOBALS['TCA'][$table]['ctrl']['cruser_id'],$fieldListArr)) { 
+                            $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['cruser_id'];
+                        }
                     }
                     if ($GLOBALS['TCA'][$table]['ctrl']['sortby']) {
-                        $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['sortby'];
+                        if(!in_array($GLOBALS['TCA'][$table]['ctrl']['sortby'],$fieldListArr)) { 
+                            $fieldListArr[] = $GLOBALS['TCA'][$table]['ctrl']['sortby'];
+                        }
                     }
                     if (ExtensionManagementUtility::isLoaded('workspaces') && $GLOBALS['TCA'][$table]['ctrl']['versioningWS']) {
-                        $fieldListArr[] = 't3ver_id';
-                        $fieldListArr[] = 't3ver_state';
-                        $fieldListArr[] = 't3ver_wsid';
+                        if(!in_array($GLOBALS['TCA'][$table]['ctrl'][''t3ver_id''],$fieldListArr)) { $fieldListArr[] = 't3ver_id'; }
+                        if(!in_array($GLOBALS['TCA'][$table]['ctrl'][''t3ver_state''],$fieldListArr)) {$fieldListArr[] = 't3ver_state'; }
+                        if(!in_array($GLOBALS['TCA'][$table]['ctrl'][''t3ver_wsid''],$fieldListArr)) {$fieldListArr[] = 't3ver_wsid'; }
                     }
                 }
             } else {
